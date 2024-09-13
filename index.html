@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paint App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container mt-4">
+        <!-- Barra de herramientas -->
+        <div class="d-flex justify-content-between mb-3">
+            <div>
+                <button id="pencilBtn" class="btn btn-primary">Lápiz</button>
+                <input type="color" id="colorPicker" value="#000000">
+                <button id="eraserBtn" class="btn btn-secondary">Goma</button>
+            </div>
+            <div>
+                <button id="clearBtn" class="btn btn-warning">Limpiar Lienzo</button>
+                <input type="file" id="loadImage" accept="image/*" class="btn btn-light">
+                <button id="saveBtn" class="btn btn-success">Guardar Imagen</button>
+            </div>
+        </div>
+
+        <!-- Filtros -->
+        <div class="d-flex justify-content-between mb-3">
+            <button id="negativeBtn" class="btn btn-dark">Negativo</button>
+            <button id="brightnessBtn" class="btn btn-info">Brillo</button>
+            <button id="binarizationBtn" class="btn btn-danger">Binarización</button>
+            <button id="sepiaBtn" class="btn btn-warning">Sepia</button>
+            <button id="saturationBtn" class="btn btn-primary">Saturación</button>
+            <button id="edgesBtn" class="btn btn-secondary">Detección de Bordes</button>
+            <button id="blurBtn" class="btn btn-success">Blur</button>
+        </div>
+
+        <!-- Canvas para dibujar -->
+        <canvas id="canvas" class="border border-dark w-100"></canvas>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
