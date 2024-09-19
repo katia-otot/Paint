@@ -1,8 +1,8 @@
 class CanvasImage {
     constructor(canvas) {
         this.canvas = canvas;
-        this.ctx = canvas.getContext('2d');
-        this.util = new Util(canvas);
+        this.util = util;
+        this.historyManager = historyManager;
         this.originalImageData = null;
     }
 
@@ -12,17 +12,16 @@ class CanvasImage {
         const img = new Image();
         reader.onload = (e) => {
             img.onload = () => {
-                this.canvas.width = img.width;
-                this.canvas.height = img.height;
-                this.util.clearCanvas(); // Limpiar canvas antes de dibujar la nueva imagen
+                this.historyManager.saveState(); // Guardar el estado antes de cargar una imagen nueva
+                this.util.resizeCanvas(img.width, img.height);
+                this.util.clearCanvas();
                 this.util.getCtx().drawImage(img, 0, 0);
-                this.originalImageData = this.util.getCanvasData(); // Guardar imagen original
+                this.originalImageData = this.util.getCanvasData();
             };
             img.src = e.target.result;
         };
         reader.readAsDataURL(file);
     }
-
     restoreOriginalImage() {
         if (this.originalImageData) {
             this.util.updateCanvasData(this.originalImageData); // Restaurar la imagen original usando Util

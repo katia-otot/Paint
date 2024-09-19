@@ -27,9 +27,15 @@ class Util {
     getCtx() {
         return this.ctx;
     }
+
     // Función para ajustar el tamaño del canvas según sea necesario
     resizeCanvas(newWidth, newHeight) {
         this.canvas.width = newWidth;
         this.canvas.height = newHeight;
     }
+
+    getCanvas() {
+        return this.canvas; // Retorna la referencia al canvas
+    }
+
 }

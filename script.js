@@ -1,8 +1,11 @@
 // Inicialización del canvas y clases
 const canvas = document.getElementById('canvas');
-const pen = new Pen(canvas);
-const img = new CanvasImage(canvas);
 const util = new Util(canvas);
+const historyManager = new HistoryManager(util);
+const pen = new Pen(canvas, util, historyManager);
+const img = new CanvasImage(canvas, util, historyManager);
+
+
 let lastBrightnessValue = 0;  // Para almacenar el último valor de brillo
 // Eventos de botones
 document.getElementById('clearBtn').addEventListener('click', () => util.clearCanvas());
@@ -14,6 +17,7 @@ document.getElementById('loadImage').addEventListener('change', (e) => img.loadI
 document.getElementById('saveBtn').addEventListener('click', () => img.saveImage());
 document.getElementById('sizeRange').addEventListener('input', (e) => {pen.setSize(e.target.value);});
 document.getElementById('undoBtn').addEventListener('click', () => {pen.undo();});
+document.getElementById('undoBtn').addEventListener('click', () => {historyManager.undo();});
 
 // Filtros
 document.getElementById('negativeBtn').addEventListener('click', () => {
@@ -23,11 +27,6 @@ document.getElementById('negativeBtn').addEventListener('click', () => {
 
 document.getElementById('brightnessSlider').addEventListener('input', (e) => {
     const brightnessValue = parseInt(e.target.value);
-
-    // Restaurar la imagen original antes de aplicar el filtro
-    img.restoreOriginalImage();
-
-    // Aplicar el filtro de brillo con el valor del deslizador
-    const brightnessFilter = new BrightnessFilter(canvas, brightnessValue, img.originalImageData);
+    const brightnessFilter = new BrightnessFilter(canvas, brightnessValue);
     brightnessFilter.apply();
 });

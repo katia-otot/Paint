@@ -38,16 +38,14 @@ class BrightnessFilter extends Filter {
     constructor(canvas, value, originalImageData) {
         super(canvas);
         this.value = value; // El valor de brillo
-        this.originalImageData = originalImageData; // Imagen original
+        this.historyManager = historyManager;
     }
 
     apply() {
-        let imageData = new ImageData(
-            new Uint8ClampedArray(this.originalImageData.data), 
-            this.originalImageData.width, 
-            this.originalImageData.height
-        );  // Copia de la imagen original
+        this.historyManager.saveState(); // Guardar estado antes de aplicar el filtro
+        let imageData = this.getImageData();
         let data = imageData.data;
+
 
         // Aplicar brillo basado en el valor del slider
         for (let i = 0; i < data.length; i += 4) {
