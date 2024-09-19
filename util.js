@@ -1,7 +1,7 @@
 class Util {
     constructor(canvas) {
         this.canvas = canvas;
-        this.ctx = canvas.getContext('2d');
+        this.ctx = canvas.getContext('2d', { willReadFrequently: true });
     }
 
     // Función para limpiar todo el canvas
@@ -29,9 +29,10 @@ class Util {
     }
 
     // Función para ajustar el tamaño del canvas según sea necesario
-    resizeCanvas(newWidth, newHeight) {
-        this.canvas.width = newWidth;
-        this.canvas.height = newHeight;
+    resizeCanvasToImage(image) {
+        const aspectRatio = image.width / image.height;
+        this.canvas.width = this.canvas.clientWidth;
+        this.canvas.height = this.canvas.clientWidth / aspectRatio;
     }
 
     getCanvas() {

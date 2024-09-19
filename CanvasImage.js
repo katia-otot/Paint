@@ -12,16 +12,34 @@ class CanvasImage {
         const img = new Image();
         reader.onload = (e) => {
             img.onload = () => {
-                this.historyManager.saveState(); // Guardar el estado antes de cargar una imagen nueva
-                this.util.resizeCanvas(img.width, img.height);
+                this.historyManager.saveState(); // Guardar el estado antes de cargar la imagen
                 this.util.clearCanvas();
-                this.util.getCtx().drawImage(img, 0, 0);
-                this.originalImageData = this.util.getCanvasData();
+
+                const canvasWidth = this.util.getCanvas().width;
+                const canvasHeight = this.util.getCanvas().height;
+
+                // Calcular la proporción de la imagen
+                const imgWidth = img.width;
+                const imgHeight = img.height;
+                const widthRatio = canvasWidth / imgWidth;
+                const heightRatio = canvasHeight / imgHeight;
+                const scaleFactor = Math.min(widthRatio, heightRatio);
+
+                // Redimensionar manteniendo la proporción
+                const newWidth = imgWidth * scaleFactor;
+                const newHeight = imgHeight * scaleFactor;
+                const offsetX = (canvasWidth - newWidth) / 2;  // Centrar horizontalmente
+                const offsetY = (canvasHeight - newHeight) / 2; // Centrar verticalmente
+
+                // Dibujar la imagen redimensionada sin distorsión
+                this.util.getCtx().drawImage(img, 0, 0, imgWidth, imgHeight, offsetX, offsetY, newWidth, newHeight);
+                this.originalImageData = this.util.getCanvasData(); // Guardar la imagen original
             };
             img.src = e.target.result;
         };
         reader.readAsDataURL(file);
     }
+
     restoreOriginalImage() {
         if (this.originalImageData) {
             this.util.updateCanvasData(this.originalImageData); // Restaurar la imagen original usando Util
