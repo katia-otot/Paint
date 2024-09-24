@@ -1,3 +1,4 @@
+//script.js
 // Inicialización del canvas y clases
 const canvas = document.getElementById('canvas');
 const util = new Util(canvas);
@@ -6,9 +7,13 @@ const pen = new Pen(canvas, util, historyManager);
 const img = new CanvasImage(canvas, util, historyManager);
 const brightnessFilter = new BrightnessFilter(canvas, 0);
 
+
 let lastBrightnessValue = 0;  // Para almacenar el último valor de brillo
+
+
 // Eventos de botones
 document.getElementById('clearBtn').addEventListener('click', () => util.clearCanvas());
+
 
 document.getElementById('pencilBtn').addEventListener('click', () => pen.setTool('pencil'));
 document.getElementById('eraserBtn').addEventListener('click', () => pen.setTool('eraser'));
@@ -17,8 +22,12 @@ document.getElementById('loadImage').addEventListener('change', (e) => img.loadI
 document.getElementById('saveBtn').addEventListener('click', () => img.saveImage());
 document.getElementById('sizeRange').addEventListener('input', (e) => {pen.setSize(e.target.value);});
 document.getElementById('undoBtn').addEventListener('click', () => {
-    historyManager.undo(); // Restaurar el estado anterior
+    historyManager.undo(); // Restaurar el estado anterior (incluye canvas y brillo)
+util.getCtx().globalCompositeOperation = 'source-over';
+
+
 });
+
 
 // Filtros
 document.getElementById('negativeBtn').addEventListener('click', () => {
@@ -26,7 +35,10 @@ document.getElementById('negativeBtn').addEventListener('click', () => {
     negativeFilter.apply();
 });
 
+
 document.getElementById('brightnessSlider').addEventListener('input', (e) => {
     const brightnessValue = parseInt(e.target.value);
     brightnessFilter.updateValue(brightnessValue);  // Aplica el brillo actualizado
 });
+
+
