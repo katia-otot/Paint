@@ -1,12 +1,60 @@
 body {
-    background-color: #f0f0f0;
+    background-color: #e9ecef; /* Color gris claro */
 }
 
+h2 {
+    color: #343a40; /* Color oscuro para el título */
+}
 #canvas {
     background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
     height: 500px;
 }
 
 button {
-    margin-right: 5px;
+    padding: 8px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.card {
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-range {
+    width: 100%;
+}
+
+.form-control-color {
+    width: 50px;
+    height: 40px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.d-flex > button {
+    margin-left: 10px;
+}
+
+.shadow-sm {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-lg {
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+#clearBtn, #undoBtn, #saveBtn, #loadImage {
+    width: auto;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+#loadImage {
+    width: auto;
 }
