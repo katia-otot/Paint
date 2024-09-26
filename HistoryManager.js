@@ -15,19 +15,25 @@ class HistoryManager {
         }
    
         // Guardar el estado actual del canvas
-        const currentState = {
+        let currentState = {
             imageData: ctx.getImageData(0, 0, canvas.width, canvas.height),
         };
         this.history.push(currentState); // Añadir el nuevo estado al historial
+    console.log(this.history);
+    
     }
 
 
     undo() {
         if (this.history.length > 0) {
-            const previousState = this.history.pop();
+            let previousState = this.history.pop();
             if (previousState) {
-                this.util.getCtx().putImageData(previousState.imageData, 0, 0); // Restaurar el canvas
-            }
+                this.util.getCtx().putImageData(previousState.imageData, 0, 0);
+           
+                console.log(this.history);
+             }
+             
+             
         }
     }
 }

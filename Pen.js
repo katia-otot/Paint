@@ -1,11 +1,11 @@
 //Pen.js
 class Pen {
-    constructor(canvas, color = '#000000', size = 2) {
+    constructor(canvas, util, historyManager) {
         this.canvas = canvas;
         this.util = util; // Usar util para obtener el contexto
         this.historyManager = historyManager; // Usar el historyManager actualizado
-        this.color = color;
-        this.size = size;
+        this.color = 'black';
+        this.size = 0;
         this.tool = 'pencil';
         this.drawing = false;
         this.initEvents();

@@ -35,11 +35,14 @@ document.getElementById('loadImage').addEventListener('change', (e) => {
 
 document.getElementById('saveBtn').addEventListener('click', () => img.saveImage());
 document.getElementById('sizeRange').addEventListener('input', (e) => {pen.setSize(e.target.value);});
-document.getElementById('undoBtn').addEventListener('click', () => {
-    historyManager.undo(); // Restaurar el estado anterior (incluye canvas y brillo)
-util.getCtx().globalCompositeOperation = 'source-over';
 
 
+document.getElementById('undoBtn').addEventListener('click', () => { 
+    historyManager.undo(); // Restaurar el estado anterior (incluye canvas)
+    util.getCtx().globalCompositeOperation = 'source-over';
+    document.getElementById('brightnessSlider').value = 0;
+    brightnessFilter.updateValue(0);
+    
 });
 
 
@@ -52,7 +55,8 @@ document.getElementById('negativeBtn').addEventListener('click', () => {
 
 document.getElementById('brightnessSlider').addEventListener('input', (e) => {
     const brightnessValue = parseInt(e.target.value);
-    brightnessFilter.updateValue(brightnessValue);  // Aplica el brillo actualizado
+    brightnessFilter.updateValue(brightnessValue); // Guardar el estado actual del canvas antes de aplicar el filtro, incluyendo el brillo actual
+    historyManager.saveState(); // Aplica el brillo actualizado
 });
 
 document.getElementById('binarizationBtn').addEventListener('click', () => {

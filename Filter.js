@@ -60,10 +60,7 @@ class BrightnessFilter extends Filter {
 
 
     apply() {
-        // Guardar el estado actual del canvas antes de aplicar el filtro, incluyendo el brillo actual
-        this.historyManager.saveState(this.value);
-
-
+        
         // Si la imagen original no ha sido guardada aún, la guardamos
         if (!this.originalImageData) {
             this.originalImageData = this.getImageData(); // Guarda la imagen original al aplicar el filtro por primera vez
