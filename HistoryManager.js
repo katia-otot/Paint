@@ -15,12 +15,10 @@ class HistoryManager {
         }
    
         // Guardar el estado actual del canvas
-        let currentState = {
+        const currentState = {
             imageData: ctx.getImageData(0, 0, canvas.width, canvas.height),
         };
-        this.history.push(currentState); // Añadir el nuevo estado al historial
-    console.log(this.history);
-    
+        this.history.push(currentState); // Añadir el nuevo estado al historial    
     }
 
 
@@ -29,8 +27,6 @@ class HistoryManager {
             let previousState = this.history.pop();
             if (previousState) {
                 this.util.getCtx().putImageData(previousState.imageData, 0, 0);
-           
-                console.log(this.history);
              }
              
              
